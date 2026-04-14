@@ -100,7 +100,7 @@ async function callJuror<T>(
   userPrompt: string
 ): Promise<T> {
   const msg = await client.messages.create({
-    model: "claude-opus-4-5",
+    model: "claude-sonnet-4-6",
     max_tokens: 600,
     system: persona.systemPrompt,
     messages: [{ role: "user", content: userPrompt }],

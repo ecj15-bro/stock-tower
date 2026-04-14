@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
-import { kv } from "@vercel/kv";
+import { getRedis, loadPicks, savePicks } from "@/lib/kv";
 import { runOrchestrator } from "@/lib/orchestrator";
-import { loadPicks, savePicks } from "@/lib/kv";
 
 export const maxDuration = 300;
 
-export async function POST() {
+export async function POST(request: Request) {
+  const auth = request.headers.get("authorization");
+  if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   let newPicks;
 
   // Record that the cron fired regardless of whether picks were generated
@@ -21,7 +25,7 @@ export async function POST() {
 
   // Always update last_run so we know the cron fired, even with 0 picks
   try {
-    await kv.set("last_run", runTimestamp);
+    await getRedis().set("last_run", runTimestamp);
   } catch (kvErr) {
     console.error("[API/run] KV last_run update failed:", kvErr);
     // Non-fatal — continue

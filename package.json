@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.24.0",
-    "@vercel/kv": "^3.0.0",
+    "@anthropic-ai/sdk": "^0.56.0",
+    "@upstash/redis": "^1.37.0",
     "next": "^16.2.3",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"

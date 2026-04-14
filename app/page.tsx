@@ -3,8 +3,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { StockPick, JurorArgument, JurorRebuttal } from "@/lib/types";
 
-type Tab = "picks" | "debate";
-
 const JUROR_COLORS: Record<string, string> = {
   Marco: "#6C8EBF",
   Tara: "#D4A843",
@@ -313,7 +311,6 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(false);
   const [runStatus, setRunStatus] = useState("");
-  const [activeTab, setActiveTab] = useState<Tab>("picks");
   const [selectedPick, setSelectedPick] = useState<StockPick | null>(null);
   const [filter, setFilter] = useState<"ALL" | "LONG" | "SHORT" | "SKIP">("ALL");
 
@@ -363,8 +360,6 @@ export default function Dashboard() {
       color: "rgba(255,255,255,0.85)",
       fontFamily: "'IBM Plex Mono', 'Courier New', monospace",
     }}>
-      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
-
       {/* Header */}
       <div style={{
         borderBottom: "0.5px solid rgba(255,255,255,0.06)",

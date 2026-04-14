@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
-import { kv } from "@vercel/kv";
+import { getRedis } from "@/lib/kv";
 import { StockPick } from "@/lib/types";
 
 export async function GET() {
   try {
+    const redis = getRedis();
     const [picks, lastRun] = await Promise.all([
-      kv.get<StockPick[]>("picks"),
-      kv.get<string>("last_run"),
+      redis.get<StockPick[]>("picks"),
+      redis.get<string>("last_run"),
     ]);
 
     return NextResponse.json({
