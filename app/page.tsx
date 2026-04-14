@@ -334,7 +334,7 @@ export default function Dashboard() {
     setRunning(true);
     setRunStatus("Running pipeline...");
     try {
-      const res = await fetch("/api/run", { method: "POST" });
+      const res = await fetch("/api/trigger", { method: "POST" });
       const data = await res.json();
       if (data.success) {
         setRunStatus(`Done — ${data.picks?.length ?? 0} picks generated`);
