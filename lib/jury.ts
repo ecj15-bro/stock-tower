@@ -107,7 +107,10 @@ async function callJuror<T>(
   });
 
   const raw = (msg.content[0] as { text: string }).text.trim();
-  const cleaned = raw.replace(/```json|```/g, "").trim();
+  const cleaned = raw
+    .replace(/```json|```/g, "")
+    .replace(/:\s*\+(\d)/g, ": $1")
+    .trim();
   return JSON.parse(cleaned) as T;
 }
 
